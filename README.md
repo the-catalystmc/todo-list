@@ -14,7 +14,9 @@ This is a website that was created as a Microverse project. The website is a tod
 
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps. You can either download the zip file, or clone the repository from [here](https://github.com/the-catalystmc/awesome-books/tree/build-website). After you can open the index.html file to load the website locally.
+To get a local copy up and running follow these simple example steps. You can either download the zip file, or clone the repository from [here](https://github.com/the-catalystmc/todo-list/tree/webpack-branch). Once the repository is available locally you can use:
+`npm install` to install the packages
+`npm run start` to run the server on local server 
 
 ## Author
 
