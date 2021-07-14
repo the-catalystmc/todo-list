@@ -2,3 +2,4 @@
 .hintrc
 .eslintrc.json
 hint-report
+node_modules
