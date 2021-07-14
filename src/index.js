@@ -1,39 +1,52 @@
 import './style.css';
+import Draggables from './drag.js';
 
-const taskData = [
-  {
-    description: 'wash the dishes',
-    completed: false,
-    index: 0,
-  },
-  {
-    description: 'write javascript code',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'login to moodle',
-    completed: false,
-    index: 3,
-  },
-];
+const testa = new Draggables([]);
 
-const taskCont = document.querySelector('.container');
-const taskItem = document.querySelector('.list-template');
+const addTaskBtn = document.querySelector('.add-btn');
+ addTaskBtn.addEventListener('click', () => {
+  testa.addTaskToArray();
+  testa.setToLocalStorage();
+ })
 
-const createTodoItem = (todoList) => {
-  const clone = taskItem.content.firstElementChild.cloneNode(true);
-  clone.querySelector('.task-desc').innerText = todoList.description;
+testa.addTaskToArray();
+// import './status.js';
 
-  taskCont.appendChild(clone);
-};
 
-const todoSetup = () => {
-  taskData.forEach((task) => {
-    createTodoItem(task);
-  });
-};
+// export const taskData = [
+//   {
+//     description: 'wash the dishes',
+//     completed: false,
+//     index: 0,
+//   },
+//   {
+//     description: 'write javascript code',
+//     completed: false,
+//     index: 1,
+//   },
+//   {
+//     description: 'login to moodle',
+//     completed: false,
+//     index: 3,
+//   },
+// ];
 
-window.addEventListener('load', () => {
-  todoSetup();
-});
+// const taskCont = document.querySelector('.container');
+// const taskItem = document.querySelector('.list-template');
+
+// const createTodoItem = (todoList) => {
+//   const clone = taskItem.content.firstElementChild.cloneNode(true);
+//   clone.querySelector('.task-desc').innerText = todoList.description;
+
+//   taskCont.appendChild(clone);
+// };
+
+// const todoSetup = () => {
+//   taskData.forEach((task) => {
+//     createTodoItem(task);
+//   });
+// };
+
+// window.addEventListener('load', () => {
+//   todoSetup();
+// });
