@@ -1,15 +1,39 @@
-import _ from 'lodash';
 import './style.css';
 
-function component() {
-    const element = document.createElement('div');
-  
-    // Lodash, currently included via a script, is required for this line to work
-    // Lodash, now imported by this script
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
-  
-    return element;
-  }
-  
-  document.body.appendChild(component());
+const taskData = [
+  {
+    description: 'wash the dishes',
+    completed: false,
+    index: 0,
+  },
+  {
+    description: 'write javascript code',
+    completed: false,
+    index: 1,
+  },
+  {
+    description: 'login to moodle',
+    completed: false,
+    index: 3,
+  },
+];
+
+const taskCont = document.querySelector('.container');
+const taskItem = document.querySelector('.list-template');
+
+const createTodoItem = (todoList) => {
+  const clone = taskItem.content.firstElementChild.cloneNode(true);
+  clone.querySelector('.task-desc').innerText = todoList.description;
+
+  taskCont.appendChild(clone);
+};
+
+const todoSetup = () => {
+  taskData.forEach((task) => {
+    createTodoItem(task);
+  });
+};
+
+window.addEventListener('load', () => {
+  todoSetup();
+});

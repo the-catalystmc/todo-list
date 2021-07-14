@@ -1,1 +1,34 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wbpack Exercise</title><script defer="defer" src="main.js"></script></head><body><h1>Hello webpack!</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/102965b95f.js" crossorigin="anonymous"></script>
+    <title>Wbpack Exercise</title>
+<script defer src="main.js"></script></head>
+<body>
+    <main>
+        <div class="todo-app">
+        <div class="item-style title">
+            <p class="title__text">Today's To Do</p>
+            <i class="fa fa-solid fa-sync"></i>        
+        </div>
+        <div class="item-style">
+            <input type="text" class="add-list" placeholder="Add to your list...">
+        </div>
+    <ul class="container">
+        <template class="list-template">
+        <li class="task-item item-style">
+            <div class="desc-cont">
+            <input type="checkbox" class="check">
+            <p class="task-desc">clean my shoes</p>
+        </div>
+            <i class="fa fa-ellipsis-v move-handle"></i>
+        </li>
+    </template>
+    </ul>
+    <button class="clear-btn" type="button"> Clear all completed</button>
+</div>
+</main>
+</body>
+</html>
