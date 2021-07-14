@@ -1,5 +1,5 @@
 .stylelintrc.json
 .hintrc
 .eslintrc.json
-hint-report
-node_modules
+hint-report/
+node_modules/
