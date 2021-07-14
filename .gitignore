@@ -1,4 +1,4 @@
 .stylelintrc.json
 .hintrc
 .eslintrc.json
-node_modules
+node_modules/
