@@ -20,14 +20,29 @@ export default class Draggables {
 	setToLocalStorage() {
     localStorage.setItem('Tasks', JSON.stringify(this.taskList));
   }
-	// createTodoItem(taskList) {
-	// 	const taskCont = document.querySelector('.container');
-	// 	const taskItem = document.querySelector('.list-template');
 
-	// 	const clone = taskItem.content.firstElementChild.cloneNode(true);
-	// 	clone.querySelector('.task-desc').innerText = taskList.description;
+	getFromLocalStorage() {
+    const tasks = localStorage.getItem('Tasks');
+    if (tasks != null) {
+      return JSON.parse(tasks);
+    }
+    return this.taskList;
+  }
 
-	// 	taskCont.appendChild(clone);
-	// };
+	createTodoItem(taskList) {
+		const taskCont = document.querySelector('.container');
+		const taskItem = document.querySelector('.list-template');
+
+		const clone = taskItem.content.firstElementChild.cloneNode(true);
+		clone.querySelector('.task-desc').innerText = taskList.description;
+
+		taskCont.appendChild(clone);
+	};
+
+	insertTasks(tasks) {
+		tasks.forEach((task) => {
+			this.createTodoItem(task);
+		});
+	}
 }
 

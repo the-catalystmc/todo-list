@@ -1,15 +1,20 @@
 import './style.css';
 import Draggables from './drag.js';
 
-const testa = new Draggables([]);
+const allTasks= new Draggables([]);
+const savedList = allTasks.getFromLocalStorage();
 
 const addTaskBtn = document.querySelector('.add-btn');
  addTaskBtn.addEventListener('click', () => {
-  testa.addTaskToArray();
-  testa.setToLocalStorage();
+  allTasks.addTaskToArray();
+  allTasks.setToLocalStorage();
+  allTasks.createTodoItem(allTasks.taskList[allTasks.taskList.length - 1]);
  })
 
-testa.addTaskToArray();
+window.addEventListener('load', () => {
+	allTasks.insertTasks(savedList);
+});
+
 // import './status.js';
 
 
