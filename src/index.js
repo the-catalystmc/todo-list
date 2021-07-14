@@ -11,6 +11,11 @@ const taskData = [
     completed: false,
     index: 1,
   },
+  {
+    description: 'login to moodle',
+    completed: false,
+    index: 3,
+  },
 ];
 
 const taskCont = document.querySelector('.container');

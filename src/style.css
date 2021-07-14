@@ -60,7 +60,7 @@ main {
 
 .clear-btn {
   padding: 15px;
-  color: gray;
+  color: rgb(94, 88, 88);
 }
 
 .container {
@@ -79,4 +79,8 @@ main {
 
 .task-desc {
   padding-left: 15px;
+}
+
+.move-handle:hover {
+  cursor: move;
 }
