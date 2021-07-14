@@ -8,15 +8,16 @@
 </head>
 <body>
     <main>
-        <section class="todo-app">
+        <div class="todo-app">
         <div class="item-style title">
-            <p class="title__text">Today's To Do</p>
+            <h6 class="title__text">Today's To Do</h6>
             <i class="fa fa-solid fa-sync"></i>        
         </div>
         <div class="item-style">
             <input type="text" class="add-list" placeholder="Add to your list...">
         </div>
     <ul class="container">
+        <template class="list-template">
         <li class="task-item item-style">
             <div class="desc-cont">
             <input type="checkbox" class="check">
@@ -24,9 +25,10 @@
         </div>
             <i class="fa fa-ellipsis-v"></i>
         </li>
+    </template>
     </ul>
     <button class="clear-btn" type="button"> Clear all completed</button>
-</section>
+</div>
 </main>
 </body>
 </html>

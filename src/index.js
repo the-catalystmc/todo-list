@@ -1,4 +1,3 @@
-import _, { before } from 'lodash';
 import './style.css';
 
 const taskData = [
@@ -12,4 +11,24 @@ const taskData = [
     completed: false,
     index: 1,
   },
-]
+];
+
+const taskCont = document.querySelector('.container');
+const taskItem = document.querySelector('.list-template');
+
+const createTodoItem = (todoList) => {
+  const clone = taskItem.content.firstElementChild.cloneNode(true);
+  clone.querySelector('.task-desc').innerText = todoList.description;
+
+  taskCont.appendChild(clone);
+};
+
+const todoSetup = () => {
+  taskData.forEach((task) => {
+    createTodoItem(task);
+  });
+};
+
+window.addEventListener('load', () => {
+  todoSetup();
+});
