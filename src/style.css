@@ -93,3 +93,19 @@ main {
 .move-handle:hover {
   cursor: move;
 }
+
+.list-style {
+  background: bisque;
+}
+
+.hint {
+  background: aqua;
+}
+
+.nothint {
+  background: orange;
+}
+
+.active {
+  background: green;
+}

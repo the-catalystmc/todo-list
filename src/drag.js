@@ -1,48 +1,91 @@
-
-
 export default class Draggables {
-	constructor(taskList) {
-		this.taskList = taskList;
+	constructor(list) {
+		this.list = list;
+		let currentUpdate = 0;
+		let enteredUpdate = 0;
 	}
 
-	addTaskToArray() {
-		const task = document.querySelector('.add-list');
-
-			const newTask = {
-				description: task.value,
-				completed: false,
-			}
-			this.taskList.push(newTask);
-			newTask.index = this.taskList.indexOf(newTask),
-			task.value = '';
+	currentReturn(current) {
+		return current;
 	}
+	
+	// enteredReturn(entered) {
+	// 	entered = enteredUpdate;
+	// 	return entered;
+	// }
 
-	setToLocalStorage() {
-    localStorage.setItem('Tasks', JSON.stringify(this.taskList));
-  }
+	updateList() {
+		let listTarget = this.list;
+		listTarget.classList.add("list-style");
+		let items = listTarget.getElementsByTagName("li");
+		let current = null;
+		let entered = null;
 
-	getFromLocalStorage() {
-    const tasks = localStorage.getItem('Tasks');
-    if (tasks != null) {
-      return JSON.parse(tasks);
-    }
-    return this.taskList;
-  }
+		for (let item of items) {
+			item.addEventListener('dragstart', (e) => {
+				current = e.target;
+				for (let it of items) {
+					if (it == current) {
+						it.classList.add("hint");
+					}
+					else {
+						it.classList.add("nothint");
+					}
+				}
+			})
 
-	createTodoItem(taskList) {
-		const taskCont = document.querySelector('.container');
-		const taskItem = document.querySelector('.list-template');
+			item.addEventListener("dragend", function () {
+				for (let it of items) {
+					it.classList.remove("hint");
+					it.classList.remove("nothint");
+					it.classList.remove("active");
+				}
+			});
 
-		const clone = taskItem.content.firstElementChild.cloneNode(true);
-		clone.querySelector('.task-desc').innerText = taskList.description;
+			item.addEventListener('dragenter', (e) => {
+				entered = e.target;
+				for (let it of items) {
+					if (it == entered) {
+						it.classList.add("active");
+					}
+				}
+			})
 
-		taskCont.appendChild(clone);
-	};
+			item.addEventListener("dragleave", () => {
+				for (let it of items) {
+					if (it !== entered) {
+						it.classList.remove("active");
+					}
+				}
+			});
 
-	insertTasks(tasks) {
-		tasks.forEach((task) => {
-			this.createTodoItem(task);
-		});
+			item.addEventListener("dragover", (e) => {
+				e.preventDefault();
+			});
+
+			item.addEventListener("drop", (e) => {
+				e.preventDefault();
+				
+				if (entered != current) {
+					let currentpos = 0;
+					let droppedpos = 0;
+					for (let i = 0; i < items.length; i++) {
+						if (current == items[i]) {
+							currentpos = i;
+						}
+						if (entered == items[i]) {
+							droppedpos = i;
+						}
+						if (currentpos < droppedpos) {
+							entered.parentNode.insertBefore(current, entered.nextSibling);
+						} 
+						else if(currentpos > droppedpos) {
+							entered.parentNode.insertBefore(current, entered);
+						}
+						else {current = current;}
+					}
+				}
+			});
+		}
 	}
 }
-
