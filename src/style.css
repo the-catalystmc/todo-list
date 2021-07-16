@@ -109,3 +109,8 @@ main {
 .active {
   background: green;
 }
+
+.done {
+  text-decoration: line-through;
+  color: rgb(107, 102, 102);
+}

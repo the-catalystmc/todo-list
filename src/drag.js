@@ -79,33 +79,6 @@ export default class Draggables {
 		}
 	}
 
-	// sortList() {
-	// 	let listTarget = this.list;
-	// 	let elements = listTarget.getElementsByTagName("li");
-	// 	let items = [...elements];
-	// 	let current = null;
-	// 	let entered = null;
-	// 	for (let item of items) {
-	// 		item.addEventListener('dragstart', (e) => {
-	// 			current = items.indexOf(e.target);
-	// 			console.log(current)
-	// 		})
-
-	// 		item.addEventListener('dragenter', (e) => {
-	// 			entered = items.indexOf(e.target);
-	// 			console.log(entered)
-	// 		})
-
-	// 		item.addEventListener('drop', (e) => {
-	// 			if (entered != current) {
-	// 				items.splice(entered, 0, items.splice(current, 1)[0])
-	// 				console.log(items);
-	// 			}
-	// 		})
-	// 	}
-	// 	return items;
-	// }
-
 	static sortList(list) {
 		let listTarget = list;
 		let elements = listTarget.getElementsByTagName("li");
@@ -126,7 +99,6 @@ export default class Draggables {
 			item.addEventListener('drop', (e) => {
 				if (entered != current) {
 					items.splice(entered, 0, items.splice(current, 1)[0])
-					console.log(items);
 				}
 			})
 		}
