@@ -3,8 +3,10 @@ import Draggables from './drag.js';
 import statusCheck from './status.js';
 
 let testList;
+let testListB;
+let boxChecked;
 
-class TaskList {
+export default class TaskList {
 	constructor(taskList) {
 		this.taskList = taskList;
 	}
@@ -40,7 +42,6 @@ class TaskList {
 
 	clearTaskList() {
 		this.taskList.splice(0, this.taskList.length);
-		console.log('Delete')
 	}
 
 	createTodoItem(taskList) {
@@ -57,7 +58,7 @@ class TaskList {
 		tasks.forEach((task) => {
 			const newTask = {
 				description: task.description,
-				completed: false,
+				completed: task.completed,
 			}
 			this.taskList.push(newTask);
 			newTask.index = this.taskList.indexOf(newTask),
@@ -70,12 +71,28 @@ class TaskList {
 		tasks.forEach((task) => {
 			const newTask = {
 				description: task.innerText,
-				completed: false,
+				completed: task.completed
 			}
 			this.taskList.push(newTask);
 			newTask.index = this.taskList.indexOf(newTask);
 		});
 
+	}
+
+	insertCheckTasks(tasks) {
+		tasks.forEach((task) => {
+			const newTask = {
+				description: task.description,
+				completed: task.completed,
+			}
+			this.taskList.push(newTask);
+			newTask.index = this.taskList.indexOf(newTask);
+		});
+
+	}
+
+	static exportTaskList() {
+		return this.taskList;
 	}
 }
 
@@ -92,30 +109,46 @@ addTaskBtn.addEventListener('click', () => {
 	allTasks.addTaskToArray();
 	allTasks.setToLocalStorage();
 	allTasks.createTodoItem(allTasks.taskList[allTasks.taskList.length - 1]);
-	listTargetItems.updateList();
 	checkbox = listTarget.getElementsByTagName("input");
-	// statusCheck.checkBox(allTasks, checkbox);
+	statusCheck.checkBox(allTasks, checkbox);
 })
+
+const checker = () => {
+	let testListB = statusCheck.checkBox(allTasks, checkbox);
+	let checkBtn = [...document.querySelectorAll('.check-item')];
+	checkBtn.forEach(element => {
+		element.addEventListener('change', (e) => {
+			let testListB = statusCheck.checkBox(allTasks, checkbox);
+			statusCheck.checkBox(allTasks, checkbox);
+			localStorage.clear();
+			allTasks.clearTaskList();
+			allTasks.insertCheckTasks(testListB);
+			allTasks.setToLocalStorage();
+
+		})
+	});
+}
 
 window.addEventListener('load', () => {
 	allTasks.insertTasks(savedList);
 	listTargetItems.updateList();
 	checkbox = listTarget.getElementsByTagName("input");
-	statusCheck.checkBox(allTasks, checkbox);
+	checker();
 });
-	
+
 
 const updateList = () => {
-	// allTasks.clearLocalStorage();
 	testList = Draggables.sortList(listTarget);
-	window.localStorage.clear();
+	localStorage.clear();
 	allTasks.clearTaskList();
 	allTasks.insertSortTasks(testList);
 	allTasks.setToLocalStorage();
 }
 
 listTarget.addEventListener('drop', () => {
-	console.log('working');
-updateList();
-// statusCheck.checkBox(allTasks, checkbox);
-window.location.reload; })
+	updateList();
+	window.location.reload;
+})
+
+
+

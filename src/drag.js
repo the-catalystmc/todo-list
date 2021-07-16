@@ -88,12 +88,10 @@ export default class Draggables {
 		for (let item of items) {
 			item.addEventListener('dragstart', (e) => {
 				current = items.indexOf(e.target);
-				console.log(current)
 			})
 
 			item.addEventListener('dragenter', (e) => {
 				entered = items.indexOf(e.target);
-				console.log(entered)
 			})
 
 			item.addEventListener('drop', (e) => {
