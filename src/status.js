@@ -1,3 +1,5 @@
+import Draggables from './drag.js';
+
 export default class statusCheck {
   static checkBox(list, checkbox){
     let current = null;

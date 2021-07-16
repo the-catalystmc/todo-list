@@ -2,7 +2,6 @@ import './style.css';
 import Draggables from './drag.js';
 import statusCheck from './status.js';
 
-
 let testList;
 
 class TaskList {
@@ -95,13 +94,12 @@ addTaskBtn.addEventListener('click', () => {
 	allTasks.createTodoItem(allTasks.taskList[allTasks.taskList.length - 1]);
 	listTargetItems.updateList();
 	checkbox = listTarget.getElementsByTagName("input");
-	statusCheck.checkBox(allTasks, checkbox);
+	// statusCheck.checkBox(allTasks, checkbox);
 })
 
 window.addEventListener('load', () => {
 	allTasks.insertTasks(savedList);
 	listTargetItems.updateList();
-	//   listTargetItems.sortList();
 	checkbox = listTarget.getElementsByTagName("input");
 	statusCheck.checkBox(allTasks, checkbox);
 });
@@ -114,8 +112,10 @@ const updateList = () => {
 	allTasks.clearTaskList();
 	allTasks.insertSortTasks(testList);
 	allTasks.setToLocalStorage();
+}
 
 listTarget.addEventListener('drop', () => {
-updateList()
+	console.log('working');
+updateList();
+// statusCheck.checkBox(allTasks, checkbox);
 window.location.reload; })
-}
