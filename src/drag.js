@@ -1,18 +1,8 @@
 export default class Draggables {
 	constructor(list) {
 		this.list = list;
-		let currentUpdate = 0;
-		let enteredUpdate = 0;
-	}
 
-	currentReturn(current) {
-		return current;
 	}
-	
-	// enteredReturn(entered) {
-	// 	entered = enteredUpdate;
-	// 	return entered;
-	// }
 
 	updateList() {
 		let listTarget = this.list;
@@ -34,7 +24,7 @@ export default class Draggables {
 				}
 			})
 
-			item.addEventListener("dragend", function () {
+			item.addEventListener("dragend", () => {
 				for (let it of items) {
 					it.classList.remove("hint");
 					it.classList.remove("nothint");
@@ -65,7 +55,7 @@ export default class Draggables {
 
 			item.addEventListener("drop", (e) => {
 				e.preventDefault();
-				
+
 				if (entered != current) {
 					let currentpos = 0;
 					let droppedpos = 0;
@@ -78,14 +68,69 @@ export default class Draggables {
 						}
 						if (currentpos < droppedpos) {
 							entered.parentNode.insertBefore(current, entered.nextSibling);
-						} 
-						else if(currentpos > droppedpos) {
+						}
+						else if (currentpos > droppedpos) {
 							entered.parentNode.insertBefore(current, entered);
 						}
-						else {current = current;}
+						else { current = current; }
 					}
 				}
 			});
 		}
 	}
+
+	// sortList() {
+	// 	let listTarget = this.list;
+	// 	let elements = listTarget.getElementsByTagName("li");
+	// 	let items = [...elements];
+	// 	let current = null;
+	// 	let entered = null;
+	// 	for (let item of items) {
+	// 		item.addEventListener('dragstart', (e) => {
+	// 			current = items.indexOf(e.target);
+	// 			console.log(current)
+	// 		})
+
+	// 		item.addEventListener('dragenter', (e) => {
+	// 			entered = items.indexOf(e.target);
+	// 			console.log(entered)
+	// 		})
+
+	// 		item.addEventListener('drop', (e) => {
+	// 			if (entered != current) {
+	// 				items.splice(entered, 0, items.splice(current, 1)[0])
+	// 				console.log(items);
+	// 			}
+	// 		})
+	// 	}
+	// 	return items;
+	// }
+
+	static sortList(list) {
+		let listTarget = list;
+		let elements = listTarget.getElementsByTagName("li");
+		let items = [...elements];
+		let current = null;
+		let entered = null;
+		for (let item of items) {
+			item.addEventListener('dragstart', (e) => {
+				current = items.indexOf(e.target);
+				console.log(current)
+			})
+
+			item.addEventListener('dragenter', (e) => {
+				entered = items.indexOf(e.target);
+				console.log(entered)
+			})
+
+			item.addEventListener('drop', (e) => {
+				if (entered != current) {
+					items.splice(entered, 0, items.splice(current, 1)[0])
+					console.log(items);
+				}
+			})
+		}
+		return items;
+	}
+
 }

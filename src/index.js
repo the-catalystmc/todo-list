@@ -1,6 +1,8 @@
 import './style.css';
 import Draggables from './drag.js';
 
+let testList;
+
 class TaskList {
 	constructor(taskList) {
 		this.taskList = taskList;
@@ -15,7 +17,7 @@ class TaskList {
 		}
 		this.taskList.push(newTask);
 		newTask.index = this.taskList.indexOf(newTask);
-			task.value = '';
+		task.value = '';
 	}
 
 	setToLocalStorage() {
@@ -28,6 +30,11 @@ class TaskList {
 			return JSON.parse(tasks);
 		}
 		return this.taskList;
+	}
+
+	clearLocalStorage() {
+		localStorage.removeItem('Tasks');
+		console.log('working');
 	}
 
 	createTodoItem(taskList) {
@@ -49,36 +56,46 @@ class TaskList {
 			newTask.index = this.taskList.indexOf(newTask),
 				this.createTodoItem(task);
 		});
+
+	}
+
+	insertSortTasks(tasks) {
+		tasks.forEach((task) => {
+			const newTask = {
+				description: task.innerText,
+			}
+			this.taskList.push(newTask);
+			newTask.index = this.taskList.indexOf(newTask),
+				this.createTodoItem(task);
+		});
+
 	}
 }
 
 
 
-const allTasks= new TaskList([]);
+const allTasks = new TaskList([]);
 const savedList = allTasks.getFromLocalStorage();
 
 let listTarget = document.getElementById('container');
 const listTargetItems = new Draggables(listTarget);
 
-
 const addTaskBtn = document.querySelector('.add-btn');
- addTaskBtn.addEventListener('click', () => {
-  allTasks.addTaskToArray();
-  allTasks.setToLocalStorage();
-  allTasks.createTodoItem(allTasks.taskList[allTasks.taskList.length - 1]);
- })
+addTaskBtn.addEventListener('click', () => {
+	allTasks.addTaskToArray();
+	allTasks.setToLocalStorage();
+	allTasks.createTodoItem(allTasks.taskList[allTasks.taskList.length - 1]);
+})
 
 window.addEventListener('load', () => {
 	allTasks.insertTasks(savedList);
-  listTargetItems.updateList();
+	listTargetItems.updateList();
+	//   listTargetItems.sortList();
+	testList = Draggables.sortList(listTarget);
 });
 
-let items = listTarget.getElementsByTagName("li");
 listTarget.addEventListener('drop', () => {
-	console.log(items);
-
-// items.forEach((element, index) => {
-// 	console.log(element);
-// 	console.log('Hello')
-// });
+	allTasks.clearLocalStorage();
+	allTasks.insertSortTasks(testList);
+	allTasks.setToLocalStorage();
 })
