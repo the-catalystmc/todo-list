@@ -94,7 +94,21 @@ export default class TaskList {
       this.save();
     });
 
-    //addEventListeners then call functions for each
+    // clone.addEventListener('dragstart', () => {
+    //   console.log(clone)
+    // })
+
+    // clone.addEventListener('dragend', () => {
+    //   console.log(clone)
+    // })
+
+    // clone.addEventListener('dragenter', (e) => {
+    //   console.log(clone)
+    // })
+
+    // clone.addEventListener('dragleave', (e) => {
+    //   console.log(clone)
+    // })
   }
 
   insertTasks(tasks) {

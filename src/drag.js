@@ -1,4 +1,8 @@
 export default class Draggables {
+  current;
+
+  entered;
+
   constructor(list) {
     this.list = list;
   }
@@ -7,17 +11,14 @@ export default class Draggables {
     const listTarget = this.list;
     listTarget.classList.add('list-style');
     const items = listTarget.getElementsByTagName('li');
-    
-    let current = null;
-    let entered = null;
 
     for (let i = 0; i < items.length; i += 1) {
       const item = items[i];
       item.addEventListener('dragstart', (e) => {
-        current = e.target;
+        this.current = e.target;
         for (let i = 0; i < items.length; i += 1) {
           const it = items[i];
-          if (it === current) {
+          if (it === this.current) {
             it.classList.add('hint');
           } else {
             it.classList.add('nothint');
@@ -35,10 +36,10 @@ export default class Draggables {
       });
 
       item.addEventListener('dragenter', (e) => {
-        entered = e.target;
+        this.entered = e.target;
         for (let i = 0; i < items.length; i += 1) {
           const it = items[i];
-          if (it === entered) {
+          if (it === this.entered) {
             it.classList.add('active');
           }
         }
@@ -47,7 +48,7 @@ export default class Draggables {
       item.addEventListener('dragleave', () => {
         for (let i = 0; i < items.length; i += 1) {
           const it = items[i];
-          if (it !== entered) {
+          if (it !== this.entered) {
             it.classList.remove('active');
           }
         }
@@ -60,22 +61,22 @@ export default class Draggables {
       item.addEventListener('drop', (e) => {
         e.preventDefault();
 
-        if (entered !== current) {
+        if (this.entered !== this.current) {
           let currentpos = 0;
           let droppedpos = 0;
           for (let i = 0; i < items.length; i += 1) {
-            if (current === items[i]) {
+            if (this.current === items[i]) {
               currentpos = i;
             }
-            if (entered === items[i]) {
+            if (this.entered === items[i]) {
               droppedpos = i;
             }
             if (currentpos < droppedpos) {
-              entered.parentNode.insertBefore(current, entered.nextSibling);
+              this.entered.parentNode.insertBefore(this.current, this.entered.nextSibling);
             } else if (currentpos > droppedpos) {
-              entered.parentNode.insertBefore(current, entered);
+              this.entered.parentNode.insertBefore(this.current, this.entered);
             } else {
-              current = current;
+              this.current.classList.add('hint');
             }
           }
         }
