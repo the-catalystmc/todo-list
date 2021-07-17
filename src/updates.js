@@ -1,4 +1,4 @@
-import allTasks from './index';
+import statusCheck from './status';
 
 
 class UIUpdate {
@@ -8,7 +8,7 @@ class UIUpdate {
 
     editInput = (clone, updateFunc) => {
         clone.addEventListener('input', () => {
-            console.log('text inputted');
+            console.log(updateFunc.taskList)
             updateFunc.save()
           })
     }
@@ -19,7 +19,6 @@ class UIUpdate {
         clone.addEventListener('mouseover', () => {
             deleteBtn.style.display = 'flex';
             moveBtn.style.display = 'none';
-            console.log('ready')
           })
       
           clone.addEventListener('mouseout', () => {
@@ -30,9 +29,20 @@ class UIUpdate {
           })
 
           deleteBtn.addEventListener('click', () => {
-            console.log(clone);
             deleteBtn.parentNode.parentNode.removeChild(deleteBtn.parentNode);
             updateFunc.save()
+        })
+    }
+
+    clearChecked = (clone, task, updateFunc) => {
+        const status = task.completed;
+        const clearBtn = document.querySelector('.clear-btn');
+        clearBtn.addEventListener('click', () => {
+            updateFunc.save();
+            if(status) {
+                container.removeChild(clone);
+                updateFunc.save();
+            }
         })
     }
 }

@@ -27,6 +27,7 @@ class TaskList {
       });
       this.listDraggables.updateList();
       this.save();
+      document.querySelector('.add-list').value = '';
     });
   }
 
@@ -94,9 +95,11 @@ class TaskList {
 
     clone.querySelector('.check-item').addEventListener('change', () => {
       this.save();
+      window.location.reload();
     });
     uiUpdate.removeTask(clone, this);
     uiUpdate.editInput(clone, this);
+    uiUpdate.clearChecked(clone, task, this);
   }
 
   insertTasks(tasks) {
@@ -125,6 +128,7 @@ const listTargetItems = new Draggables(listTarget);
 window.addEventListener('load', () => {
   allTasks.insertTasks(savedList);
   listTargetItems.updateList();
+
 });
 
 export { allTasks as default };
