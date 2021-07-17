@@ -17,8 +17,7 @@ export default class Draggables {
 				for (let it of items) {
 					if (it == current) {
 						it.classList.add("hint");
-					}
-					else {
+					} else {
 						it.classList.add("nothint");
 					}
 				}
@@ -30,6 +29,7 @@ export default class Draggables {
 					it.classList.remove("nothint");
 					it.classList.remove("active");
 				}
+
 			});
 
 			item.addEventListener('dragenter', (e) => {
@@ -68,39 +68,14 @@ export default class Draggables {
 						}
 						if (currentpos < droppedpos) {
 							entered.parentNode.insertBefore(current, entered.nextSibling);
-						}
-						else if (currentpos > droppedpos) {
+						} else if (currentpos > droppedpos) {
 							entered.parentNode.insertBefore(current, entered);
+						} else {
+							current = current;
 						}
-						else { current = current; }
 					}
 				}
 			});
 		}
 	}
-
-	static sortList(list) {
-		let listTarget = list;
-		let elements = listTarget.getElementsByTagName("li");
-		let items = [...elements];
-		let current = null;
-		let entered = null;
-		for (let item of items) {
-			item.addEventListener('dragstart', (e) => {
-				current = items.indexOf(e.target);
-			})
-
-			item.addEventListener('dragenter', (e) => {
-				entered = items.indexOf(e.target);
-			})
-
-			item.addEventListener('drop', (e) => {
-				if (entered != current) {
-					items.splice(entered, 0, items.splice(current, 1)[0])
-				}
-			})
-		}
-		return items;
-	}
-
 }

@@ -6,9 +6,52 @@ let testList;
 let testListB;
 let boxChecked;
 
+
+
 export default class TaskList {
+
+	refereceList = [];
+	container = document.querySelector('.container');
+	addTaskBtn = document.querySelector('.add-btn');
+
+	listDraggables = new Draggables(this.container);
+
 	constructor(taskList) {
 		this.taskList = taskList;
+
+		this.container.addEventListener('drop', () => {
+			updateList();
+			window.location.reload;
+			this.save();
+			console.log('drop')
+		})
+
+		this.addTaskBtn.addEventListener('click', () => {
+			this.createTodoItem({
+				description: document.querySelector('.add-list').value,
+				completed: false});
+			this.listDraggables.updateList();
+			this.save();
+		})
+	}
+
+	save = () => {
+		const container = document.querySelector('.container');
+  	const allElements = container.getElementsByTagName('li');
+
+		this.clearTaskList();
+
+		console.log("helo save")
+		Array.from(allElements).forEach((element, i) => {
+			const newTask = {
+				description: element.querySelector('.task-desc').innerText,
+				completed: element.querySelector('.check-item').checked,
+				index: i,
+			}
+			this.taskList.push(newTask);
+			this.setToLocalStorage();
+		}); 
+
 	}
 
 	addTaskToArray() {
@@ -44,14 +87,26 @@ export default class TaskList {
 		this.taskList.splice(0, this.taskList.length);
 	}
 
-	createTodoItem(taskList) {
+	createTodoItem(task) {
 		const taskCont = document.querySelector('.container');
 		const taskItem = document.querySelector('.list-template');
 
-		const clone = taskItem.content.firstElementChild.cloneNode(true);
-		clone.querySelector('.task-desc').innerText = taskList.description;
 
+
+		const clone = taskItem.content.firstElementChild.cloneNode(true);
+		clone.querySelector('.task-desc').innerText = task.description;
+
+
+		this.refereceList.push(clone);
 		taskCont.appendChild(clone);
+
+		console.log(task.completed)
+		statusCheck.setChecked(clone, task.completed);
+
+		clone.querySelector('.check-item').addEventListener('change', (e) => {
+			statusCheck.checkStats(clone);
+			this.save();
+		});
 	};
 
 	insertTasks(tasks) {
@@ -62,31 +117,7 @@ export default class TaskList {
 			}
 			this.taskList.push(newTask);
 			newTask.index = this.taskList.indexOf(newTask),
-				this.createTodoItem(task);
-		});
-
-	}
-
-	insertSortTasks(tasks) {
-		tasks.forEach((task) => {
-			const newTask = {
-				description: task.innerText,
-				completed: task.completed
-			}
-			this.taskList.push(newTask);
-			newTask.index = this.taskList.indexOf(newTask);
-		});
-
-	}
-
-	insertCheckTasks(tasks) {
-		tasks.forEach((task) => {
-			const newTask = {
-				description: task.description,
-				completed: task.completed,
-			}
-			this.taskList.push(newTask);
-			newTask.index = this.taskList.indexOf(newTask);
+				this.createTodoItem(newTask);
 		});
 
 	}
@@ -102,53 +133,7 @@ let savedList = allTasks.getFromLocalStorage();
 let listTarget = document.getElementById('container');
 const listTargetItems = new Draggables(listTarget);
 
-let checkbox = listTarget.getElementsByTagName("input");
-
-const addTaskBtn = document.querySelector('.add-btn');
-addTaskBtn.addEventListener('click', () => {
-	allTasks.addTaskToArray();
-	allTasks.setToLocalStorage();
-	allTasks.createTodoItem(allTasks.taskList[allTasks.taskList.length - 1]);
-	checkbox = listTarget.getElementsByTagName("input");
-	statusCheck.checkBox(allTasks, checkbox);
-})
-
-const checker = () => {
-	let testListB = statusCheck.checkBox(allTasks, checkbox);
-	let checkBtn = [...document.querySelectorAll('.check-item')];
-	checkBtn.forEach(element => {
-		element.addEventListener('change', (e) => {
-			let testListB = statusCheck.checkBox(allTasks, checkbox);
-			statusCheck.checkBox(allTasks, checkbox);
-			localStorage.clear();
-			allTasks.clearTaskList();
-			allTasks.insertCheckTasks(testListB);
-			allTasks.setToLocalStorage();
-
-		})
-	});
-}
-
 window.addEventListener('load', () => {
 	allTasks.insertTasks(savedList);
 	listTargetItems.updateList();
-	checkbox = listTarget.getElementsByTagName("input");
-	checker();
 });
-
-
-const updateList = () => {
-	testList = Draggables.sortList(listTarget);
-	localStorage.clear();
-	allTasks.clearTaskList();
-	allTasks.insertSortTasks(testList);
-	allTasks.setToLocalStorage();
-}
-
-listTarget.addEventListener('drop', () => {
-	updateList();
-	window.location.reload;
-})
-
-
-
