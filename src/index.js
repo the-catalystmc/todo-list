@@ -93,6 +93,8 @@ export default class TaskList {
     clone.querySelector('.check-item').addEventListener('change', () => {
       this.save();
     });
+
+    //addEventListeners then call functions for each
   }
 
   insertTasks(tasks) {
