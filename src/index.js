@@ -1,8 +1,10 @@
 import './style.css';
 import Draggables from './drag';
 import statusCheck from './status';
+import uiUpdate from './updates';
 
-export default class TaskList {
+
+class TaskList {
   refereceList = [];
 
   container = document.querySelector('.container');
@@ -93,22 +95,8 @@ export default class TaskList {
     clone.querySelector('.check-item').addEventListener('change', () => {
       this.save();
     });
-
-    // clone.addEventListener('dragstart', () => {
-    //   console.log(clone)
-    // })
-
-    // clone.addEventListener('dragend', () => {
-    //   console.log(clone)
-    // })
-
-    // clone.addEventListener('dragenter', (e) => {
-    //   console.log(clone)
-    // })
-
-    // clone.addEventListener('dragleave', (e) => {
-    //   console.log(clone)
-    // })
+    uiUpdate.removeTask(clone, this);
+    uiUpdate.editInput(clone, this);
   }
 
   insertTasks(tasks) {
@@ -138,3 +126,5 @@ window.addEventListener('load', () => {
   allTasks.insertTasks(savedList);
   listTargetItems.updateList();
 });
+
+export { allTasks as default };
