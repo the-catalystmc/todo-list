@@ -3,7 +3,6 @@ import Draggables from './drag';
 import statusCheck from './status';
 import uiUpdate from './updates';
 
-
 class TaskList {
   refereceList = [];
 
@@ -128,7 +127,6 @@ const listTargetItems = new Draggables(listTarget);
 window.addEventListener('load', () => {
   allTasks.insertTasks(savedList);
   listTargetItems.updateList();
-
 });
 
 export { allTasks as default };
