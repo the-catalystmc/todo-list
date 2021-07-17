@@ -67,6 +67,10 @@ main {
   list-style: none;
 }
 
+/* .container p {
+  width: 100%;
+} */
+
 .task-item {
   display: flex;
   justify-content: space-between;
@@ -92,6 +96,11 @@ main {
 
 .move-handle:hover {
   cursor: move;
+  display: flex;
+}
+
+.delete {
+  display: none;
 }
 
 .list-style {
