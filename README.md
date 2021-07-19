@@ -13,7 +13,7 @@ This is a website that was created as a Microverse project. The website is a tod
 
 ## Live Demo
 
-[You can view a live link by clicking on the following: Live Demo Link](https://the-catalystmc.github.io/todo-list/dist/index.html)
+You can view a live link by clicking on the following: [Live Demo Link](https://the-catalystmc.github.io/todo-list/dist/index.html)
 
 
 ## Getting Started
